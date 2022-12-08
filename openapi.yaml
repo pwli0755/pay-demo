@@ -1,0 +1,178 @@
+# Generated with protoc-gen-openapi
+# https://github.com/google/gnostic/tree/master/cmd/protoc-gen-openapi
+
+openapi: 3.0.3
+info:
+    title: PayService API
+    version: 0.0.1
+paths:
+    /v1/notify:
+        post:
+            tags:
+                - PayService
+            operationId: PayService_Notify
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/product.api.v1.NotifyRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/product.api.v1.NotifyReply'
+    /v1/products:
+        get:
+            tags:
+                - PayService
+            operationId: PayService_ListProduct
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/product.api.v1.ListProductReply'
+    /v1/trade:
+        post:
+            tags:
+                - PayService
+            operationId: PayService_CreateTrade
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/product.api.v1.CreateTradeRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/product.api.v1.CreateTradeReply'
+components:
+    schemas:
+        product.api.v1.CreateTradeReply:
+            type: object
+            properties:
+                data:
+                    $ref: '#/components/schemas/product.api.v1.CreateTradeReply_content'
+        product.api.v1.CreateTradeReply_content:
+            type: object
+            properties:
+                form_str:
+                    type: string
+        product.api.v1.CreateTradeRequest:
+            type: object
+            properties:
+                product_id:
+                    type: integer
+                    format: int64
+                pay_type:
+                    type: string
+        product.api.v1.ListProductReply:
+            type: object
+            properties:
+                results:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/product.api.v1.Product'
+        product.api.v1.NotifyReply:
+            type: object
+            properties:
+                value:
+                    type: string
+        product.api.v1.NotifyRequest:
+            type: object
+            properties:
+                auth_app_id:
+                    type: string
+                notify_time:
+                    type: string
+                notify_type:
+                    type: string
+                notify_id:
+                    type: string
+                app_id:
+                    type: string
+                charset:
+                    type: string
+                version:
+                    type: string
+                sign_type:
+                    type: string
+                sign:
+                    type: string
+                trade_no:
+                    type: string
+                out_trade_no:
+                    type: string
+                out_biz_no:
+                    type: string
+                buyer_id:
+                    type: string
+                buyer_logon_id:
+                    type: string
+                seller_id:
+                    type: string
+                seller_email:
+                    type: string
+                trade_status:
+                    type: string
+                total_amount:
+                    type: string
+                receipt_amount:
+                    type: string
+                invoice_amount:
+                    type: string
+                buyer_pay_amount:
+                    type: string
+                point_amount:
+                    type: string
+                refund_fee:
+                    type: string
+                subject:
+                    type: string
+                body:
+                    type: string
+                gmt_create:
+                    type: string
+                gmt_payment:
+                    type: string
+                gmt_refund:
+                    type: string
+                gmt_close:
+                    type: string
+                fund_bill_list:
+                    type: string
+                passback_params:
+                    type: string
+                voucher_detail_list:
+                    type: string
+                agreement_no:
+                    type: string
+                external_agreement_no:
+                    type: string
+        product.api.v1.Product:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    format: int64
+                title:
+                    type: string
+                price:
+                    type: integer
+                    format: uint64
+                created_at:
+                    type: string
+                    format: date-time
+                updated_at:
+                    type: string
+                    format: date-time
+tags:
+    - name: PayService

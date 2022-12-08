@@ -1,0 +1,109 @@
+syntax = "proto3";
+
+package product.api.v1;
+
+option go_package = "github.com/go-kratos/examples/blog/api/v1;v1";
+option java_multiple_files = true;
+option java_package = "blog.api.v1";
+
+import "google/api/annotations.proto";
+// the validate rules:
+// https://github.com/envoyproxy/protoc-gen-validate
+import "validate/validate.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+
+
+service PayService {
+  rpc ListProduct (ListProductRequest) returns (ListProductReply) {
+    option (google.api.http) = {
+      get: "/v1/products"
+    };
+  }
+
+  rpc CreateTrade (CreateTradeRequest) returns (CreateTradeReply) {
+    option (google.api.http) = {
+      post: "/v1/trade",
+      body:"*",
+    };
+  }
+
+  rpc Notify (NotifyRequest) returns (NotifyReply) {
+    option (google.api.http) = {
+      post: "/v1/notify",
+      body:"*",
+    };
+  }
+}
+
+message NotifyRequest{
+  string auth_app_id = 1;
+  string notify_time = 2;
+  string notify_type = 3;
+  string notify_id = 4;
+  string app_id = 5;
+  string charset = 6;
+  string version = 7;
+  string sign_type = 8;
+  string sign = 9;
+  string trade_no = 10;
+  string out_trade_no = 11;
+  string out_biz_no = 12;
+  string buyer_id = 13;
+  string buyer_logon_id = 14;
+  string seller_id = 15;
+  string seller_email = 16;
+  string trade_status = 17;
+  string total_amount = 18;
+  string receipt_amount = 19;
+  string invoice_amount = 20;
+  string buyer_pay_amount = 21;
+  string point_amount = 22;
+  string refund_fee = 23;
+  string subject = 24;
+  string body = 25;
+  string gmt_create = 26;
+  string gmt_payment = 27;
+  string gmt_refund = 28;
+  string gmt_close = 29;
+  string fund_bill_list = 30;
+  string passback_params = 31;
+  string voucher_detail_list = 32;
+  string agreement_no = 33;
+  string external_agreement_no = 34;
+}
+
+message NotifyReply{
+  string value = 1;
+}
+
+message CreateTradeRequest {
+  int64  product_id = 1;
+  string pay_type = 2;
+}
+
+message CreateTradeReply {
+  message content{
+    string form_str = 1;
+  }
+  content data = 1;
+}
+
+
+
+message Product {
+  int64 id = 1;
+  string title = 2;
+  uint64 price = 3;
+  google.protobuf.Timestamp created_at = 4;
+  google.protobuf.Timestamp updated_at = 5;
+}
+
+
+
+message ListProductRequest {
+}
+
+message ListProductReply {
+  repeated Product results = 1;
+}
